@@ -11,6 +11,76 @@ Tian Fang, Yanghai Tsin, Stephan Richter and Vladlen Koltun_.
 
 We present SHARP, an approach to photorealistic view synthesis from a single image. Given a single photograph, SHARP regresses the parameters of a 3D Gaussian representation of the depicted scene. This is done in less than a second on a standard GPU via a single feedforward pass through a neural network. The 3D Gaussian representation produced by SHARP can then be rendered in real time, yielding high-resolution photorealistic images for nearby views. The representation is metric, with absolute scale, supporting metric camera movements. Experimental results demonstrate that SHARP delivers robust zero-shot generalization across datasets. It sets a new state of the art on multiple datasets, reducing LPIPS by 25–34% and DISTS by 21–43% versus the best prior model, while lowering the synthesis time by three orders of magnitude.
 
+---
+
+## 🎨 Gradio Web Arayüzü
+
+Bu repository'de **SHARP modeli için CUDA optimizasyonlu Gradio web arayüzü** (`app.py`) bulunmaktadır.
+
+### ✨ Özellikler
+
+- **⚡ CUDA & FP16 Optimizasyonu**: RTX GPU'larda maksimum hız
+- **🎯 channels_last Memory Format**: Conv2D işlemleri için optimize edilmiş bellek düzeni
+- **🔥 TF32 Desteği**: Tensor Core kullanımı ile hızlandırma
+- **🧠 CuDNN Benchmark**: Otomatik kernel seçimi
+- **🎨 Minimal Arayüz**: Kullanıcı dostu, sade Gradio tasarımı
+- **📊 Real-time Durum**: İşlem adımlarının anlık görüntülenmesi
+- **💾 Otomatik Model İndirme**: İlk çalıştırmada model otomatik indirilir
+- **🧹 Bellek Yönetimi**: VRAM ve geçici dosyaların otomatik temizliği
+- **🎬 Centered 3D Viewer**: Modeller otomatik merkezlenir ve ölçeklenir
+- **📦 PLY Export**: 3D modeller standart PLY formatında
+
+### 🚀 Gradio Arayüzü Kurulum
+
+```bash
+# 1. Virtual environment oluştur
+python -m venv .venv
+.venv\Scripts\activate
+
+# 2. PyTorch CUDA 12.4 yükle
+pip install torch torchvision --index-url https://download.pytorch.org/whl/cu124
+
+# 3. Bağımlılıkları yükle
+pip install -r requirements.txt
+
+# 4. Gradio arayüzünü başlat
+python app.py
+```
+
+### 🎮 Kullanım
+
+1. Tarayıcıda `http://127.0.0.1:7870` adresini açın
+2. Sol panelden bir fotoğraf yükleyin
+3. **"✨ 3D Oluştur"** butonuna basın
+4. Sağ panelde 3D modeli görüntüleyin
+5. PLY dosyasını indirin
+
+### ⚙️ Teknik Detaylar
+
+- **Çözünürlük**: 1536x1536 (SHARP'ın orijinal ve stabil çözünürlüğü)
+- **Inference Modu**: FP16 (half precision)
+- **GPU Memory**: ~4-6 GB VRAM
+- **İşlem Süresi**: ~4-6 saniye (RTX 3070 Laptop GPU)
+- **Model Boyutu**: 2.62 GB (otomatik `models/` klasörüne indirilir)
+
+### 🎯 Optimizasyonlar
+
+```python
+# FP16 Inference
+model = model.half()
+
+# channels_last memory format
+model = model.to(device, memory_format=torch.channels_last)
+
+# CuDNN & TF32
+torch.backends.cudnn.benchmark = True
+torch.backends.cudnn.allow_tf32 = True
+torch.backends.cuda.matmul.allow_tf32 = True
+torch.set_float32_matmul_precision('high')
+```
+
+---
+
 ## Getting started
 
 We recommend to first create a python environment:
