@@ -13,57 +13,57 @@ We present SHARP, an approach to photorealistic view synthesis from a single ima
 
 ---
 
-## 🎨 Gradio Web Arayüzü
+## 🎨 Gradio Web Interface
 
-Bu repository'de **SHARP modeli için CUDA optimizasyonlu Gradio web arayüzü** (`app.py`) bulunmaktadır.
+This repository includes a **CUDA-optimized Gradio web interface** for the SHARP model (`app.py`).
 
-### ✨ Özellikler
+### ✨ Features
 
-- **⚡ CUDA & FP16 Optimizasyonu**: RTX GPU'larda maksimum hız
-- **🎯 channels_last Memory Format**: Conv2D işlemleri için optimize edilmiş bellek düzeni
-- **🔥 TF32 Desteği**: Tensor Core kullanımı ile hızlandırma
-- **🧠 CuDNN Benchmark**: Otomatik kernel seçimi
-- **🎨 Minimal Arayüz**: Kullanıcı dostu, sade Gradio tasarımı
-- **📊 Real-time Durum**: İşlem adımlarının anlık görüntülenmesi
-- **💾 Otomatik Model İndirme**: İlk çalıştırmada model otomatik indirilir
-- **🧹 Bellek Yönetimi**: VRAM ve geçici dosyaların otomatik temizliği
-- **🎬 Centered 3D Viewer**: Modeller otomatik merkezlenir ve ölçeklenir
-- **📦 PLY Export**: 3D modeller standart PLY formatında
+- **⚡ CUDA & FP16 Optimization**: Maximum speed on RTX GPUs
+- **🎯 channels_last Memory Format**: Optimized memory layout for Conv2D operations
+- **🔥 TF32 Support**: Acceleration using Tensor Cores
+- **🧠 CuDNN Benchmark**: Automatic kernel selection
+- **🎨 Minimal Interface**: User-friendly, clean Gradio design
+- **📊 Real-time Status**: Live display of processing steps
+- **💾 Automatic Model Download**: Model is automatically downloaded on first run
+- **🧹 Memory Management**: Automatic cleanup of VRAM and temporary files
+- **🎬 Centered 3D Viewer**: Models are automatically centered and scaled
+- **📦 PLY Export**: 3D models in standard PLY format
 
-### 🚀 Gradio Arayüzü Kurulum
+### 🚀 Gradio Interface Setup
 
 ```bash
-# 1. Virtual environment oluştur
+# 1. Create virtual environment
 python -m venv .venv
 .venv\Scripts\activate
 
-# 2. PyTorch CUDA 12.4 yükle
+# 2. Install PyTorch CUDA 12.4
 pip install torch torchvision --index-url https://download.pytorch.org/whl/cu124
 
-# 3. Bağımlılıkları yükle
+# 3. Install dependencies
 pip install -r requirements.txt
 
-# 4. Gradio arayüzünü başlat
+# 4. Start Gradio interface
 python app.py
 ```
 
-### 🎮 Kullanım
+### 🎮 Usage
 
-1. Tarayıcıda `http://127.0.0.1:7870` adresini açın
-2. Sol panelden bir fotoğraf yükleyin
-3. **"✨ 3D Oluştur"** butonuna basın
-4. Sağ panelde 3D modeli görüntüleyin
-5. PLY dosyasını indirin
+1. Open `http://127.0.0.1:7870` in your browser
+2. Upload a photo from the left panel
+3. Click the **"✨ Generate 3D"** button
+4. View the 3D model in the right panel
+5. Download the PLY file
 
-### ⚙️ Teknik Detaylar
+### ⚙️ Technical Details
 
-- **Çözünürlük**: 1536x1536 (SHARP'ın orijinal ve stabil çözünürlüğü)
-- **Inference Modu**: FP16 (half precision)
+- **Resolution**: 1536x1536 (SHARP's original and stable resolution)
+- **Inference Mode**: FP16 (half precision)
 - **GPU Memory**: ~4-6 GB VRAM
-- **İşlem Süresi**: ~4-6 saniye (RTX 3070 Laptop GPU)
-- **Model Boyutu**: 2.62 GB (otomatik `models/` klasörüne indirilir)
+- **Processing Time**: ~4-6 seconds (RTX 3070 Laptop GPU)
+- **Model Size**: 2.62 GB (automatically downloaded to `models/` folder)
 
-### 🎯 Optimizasyonlar
+### 🎯 Optimizations
 
 ```python
 # FP16 Inference
@@ -163,3 +163,73 @@ Our codebase is built using multiple opensource contributions, please see [ACKNO
 
 Please check out the repository [LICENSE](LICENSE) before using the provided code and
 [LICENSE_MODEL](LICENSE_MODEL) for the released models.
+
+---
+
+## Turkish Description / 🇹🇷 Türkçe Açıklama
+
+### 🎨 Gradio Web Arayüzü
+
+Bu repository'de **SHARP modeli için CUDA optimizasyonlu Gradio web arayüzü** (`app.py`) bulunmaktadır.
+
+### ✨ Özellikler
+
+- **⚡ CUDA & FP16 Optimizasyonu**: RTX GPU'larda maksimum hız
+- **🎯 channels_last Memory Format**: Conv2D işlemleri için optimize edilmiş bellek düzeni
+- **🔥 TF32 Desteği**: Tensor Core kullanımı ile hızlandırma
+- **🧠 CuDNN Benchmark**: Otomatik kernel seçimi
+- **🎨 Minimal Arayüz**: Kullanıcı dostu, sade Gradio tasarımı
+- **📊 Real-time Durum**: İşlem adımlarının anlık görüntülenmesi
+- **💾 Otomatik Model İndirme**: İlk çalıştırmada model otomatik indirilir
+- **🧹 Bellek Yönetimi**: VRAM ve geçici dosyaların otomatik temizliği
+- **🎬 Centered 3D Viewer**: Modeller otomatik merkezlenir ve ölçeklenir
+- **📦 PLY Export**: 3D modeller standart PLY formatında
+
+### 🚀 Gradio Arayüzü Kurulum
+
+```bash
+# 1. Virtual environment oluştur
+python -m venv .venv
+.venv\Scripts\activate
+
+# 2. PyTorch CUDA 12.4 yükle
+pip install torch torchvision --index-url https://download.pytorch.org/whl/cu124
+
+# 3. Bağımlılıkları yükle
+pip install -r requirements.txt
+
+# 4. Gradio arayüzünü başlat
+python app.py
+```
+
+### 🎮 Kullanım
+
+1. Tarayıcıda `http://127.0.0.1:7870` adresini açın
+2. Sol panelden bir fotoğraf yükleyin
+3. **"✨ 3D Oluştur"** butonuna basın
+4. Sağ panelde 3D modeli görüntüleyin
+5. PLY dosyasını indirin
+
+### ⚙️ Teknik Detaylar
+
+- **Çözünürlük**: 1536x1536 (SHARP'ın orijinal ve stabil çözünürlüğü)
+- **Inference Modu**: FP16 (half precision)
+- **GPU Memory**: ~4-6 GB VRAM
+- **İşlem Süresi**: ~4-6 saniye (RTX 3070 Laptop GPU)
+- **Model Boyutu**: 2.62 GB (otomatik `models/` klasörüne indirilir)
+
+### 🎯 Optimizasyonlar
+
+```python
+# FP16 Inference
+model = model.half()
+
+# channels_last memory format
+model = model.to(device, memory_format=torch.channels_last)
+
+# CuDNN & TF32
+torch.backends.cudnn.benchmark = True
+torch.backends.cudnn.allow_tf32 = True
+torch.backends.cuda.matmul.allow_tf32 = True
+torch.set_float32_matmul_precision('high')
+```
