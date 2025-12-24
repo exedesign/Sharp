@@ -11,7 +11,8 @@ This software project accompanies the research paper: _Sharp Monocular View Synt
 by _Lars Mescheder, Wei Dong, Shiwei Li, Xuyang Bai, Marcel Santos, Peiyun Hu, Bruno Lecouat, Mingmin Zhen, Amaël Delaunoy,
 Tian Fang, Yanghai Tsin, Stephan Richter and Vladlen Koltun_.
 
-![](data/teaser.jpg)
+<img width="1581" height="801" alt="image" src="https://github.com/user-attachments/assets/539f4bd9-5b12-47bf-a3a4-06d842a03956" />
+
 
 We present SHARP, an approach to photorealistic view synthesis from a single image. Given a single photograph, SHARP regresses the parameters of a 3D Gaussian representation of the depicted scene. This is done in less than a second on a standard GPU via a single feedforward pass through a neural network. The 3D Gaussian representation produced by SHARP can then be rendered in real time, yielding high-resolution photorealistic images for nearby views. The representation is metric, with absolute scale, supporting metric camera movements. Experimental results demonstrate that SHARP delivers robust zero-shot generalization across datasets. It sets a new state of the art on multiple datasets, reducing LPIPS by 25–34% and DISTS by 21–43% versus the best prior model, while lowering the synthesis time by three orders of magnitude.
 
