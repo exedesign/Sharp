@@ -3,6 +3,10 @@
 [![Project Page](https://img.shields.io/badge/Project-Page-green)](https://apple.github.io/ml-sharp/)
 [![arXiv](https://img.shields.io/badge/arXiv-2512.10685-b31b1b.svg)](https://arxiv.org/abs/2512.10685)
 
+> **⚠️ IMPORTANT:** This project requires **Python 3.11 or 3.12**. Python 3.13 is NOT compatible due to PyTorch limitations.
+> 
+> **⚠️ ÖNEMLİ:** Bu proje **Python 3.11 veya 3.12** gerektirir. Python 3.13, PyTorch kısıtlamaları nedeniyle uyumlu DEĞİLDİR.
+
 This software project accompanies the research paper: _Sharp Monocular View Synthesis in Less Than a Second_
 by _Lars Mescheder, Wei Dong, Shiwei Li, Xuyang Bai, Marcel Santos, Peiyun Hu, Bruno Lecouat, Mingmin Zhen, Amaël Delaunoy,
 Tian Fang, Yanghai Tsin, Stephan Richter and Vladlen Koltun_.
@@ -16,6 +20,9 @@ We present SHARP, an approach to photorealistic view synthesis from a single ima
 ## 🎨 Gradio Web Interface
 
 This repository includes a **CUDA-optimized Gradio web interface** for the SHARP model (`app.py`).
+
+![Gradio Interface](data/gradio_interface.jpg)
+*User-friendly web interface for single-image to 3D model generation / Tek fotoğraftan 3D model oluşturma için kullanıcı dostu web arayüzü*
 
 ### ✨ Features
 
