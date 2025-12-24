@@ -268,17 +268,17 @@ def clear_memory():
         
         freed_mb = freed_space / (1024 * 1024)
         if deleted_files > 0:
-            return f"\u2705 Temizlendi: {deleted_files} dosya ({freed_mb:.1f} MB) + VRAM bo\u015falt\u0131ld\u0131"
+            return f"\u2705 Cleaned / Temizlendi: {deleted_files} files / dosya ({freed_mb:.1f} MB) + VRAM cleared / bo\u015falt\u0131ld\u0131"
         else:
-            return "\u2705 VRAM ve bellek temizlendi!"
+            return "\u2705 VRAM and memory cleaned! / VRAM ve bellek temizlendi!"
     except Exception as e:
-        return f"\u26a0\ufe0f Hata: {str(e)}"
+        return f"\u26a0\ufe0f Error / Hata: {str(e)}"
 
 
 def process_image(image):
     """Process uploaded image and generate 3D Gaussian Splatting file."""
     if image is None:
-        yield None, None, "Lütfen bir görsel yükleyin."
+        yield None, None, "Please upload an image / Lütfen bir görsel yükleyin"
         return
     
     try:
@@ -286,12 +286,12 @@ def process_image(image):
         start_time = time.time()
         
         device = get_device()
-        yield None, None, "⚙️ Başlatılıyor..."
+        yield None, None, "⚙️ Initializing / Başlatılıyor..."
         
         # Load model
         predictor, device = load_model(device)
         use_fp16 = _model_cache.get("use_fp16", False)
-        yield None, None, f"📦 Model yüklendi (FP16: {use_fp16})"
+        yield None, None, f"📦 Model loaded / Model yüklendi (FP16: {use_fp16})"
         
         # Load image and get focal length
         if hasattr(image, 'convert'):
@@ -301,24 +301,24 @@ def process_image(image):
         
         height, width = image_np.shape[:2]
         f_px = max(width, height) * 1.2
-        yield None, None, f"🖼️ Görsel hazırlandı ({width}x{height})"
+        yield None, None, f"🖼️ Image prepared / Görsel hazırlandı ({width}x{height})"
         
         # Predict Gaussians
-        yield None, None, "🧠 AI işliyor..."
+        yield None, None, "🧠 AI processing / AI işliyor..."
         gaussians = predict_image(predictor, image_np, f_px, torch.device(device), use_fp16)
-        yield None, None, "✨ 3D model oluşturuldu"
+        yield None, None, "✨ 3D model generated / 3D model oluşturuldu"
         
         # Save to file
         with tempfile.NamedTemporaryFile(suffix=".ply", delete=False) as tmp_file:
             output_path = Path(tmp_file.name)
         
-        yield None, None, "💾 Kaydediliyor..."
+        yield None, None, "💾 Saving / Kaydediliyor..."
         save_standard_ply(gaussians, output_path)
         
         total_time = time.time() - start_time
         num_gaussians = len(gaussians.mean_vectors.flatten(0, 1))
         
-        status = f"✅ Tamamlandı • {total_time:.1f}s • {num_gaussians:,} nokta"
+        status = f"✅ Completed / Tamamlandı • {total_time:.1f}s • {num_gaussians:,} points / nokta"
         
         # Clear VRAM and memory
         if device == "cuda":
@@ -332,35 +332,35 @@ def process_image(image):
         if torch.cuda.is_available():
             torch.cuda.empty_cache()
         gc.collect()
-        yield None, None, f"❌ Hata: {str(e)}"
+        yield None, None, f"❌ Error / Hata: {str(e)}"
 
 
 # Create Gradio interface
 with gr.Blocks(title="SHARP - 3D Generator") as demo:
     gr.Markdown("""
     # ✨ SHARP - 3D Generator
-    Tek fotoğraftan 3D model oluşturun
+    Generate 3D models from a single photo / Tek fotoğraftan 3D model oluşturun
     """)
     
     with gr.Row(equal_height=True):
         with gr.Column(scale=1, min_width=280):
-            gr.Markdown("## 📷 Giriş")
+            gr.Markdown("## 📷 Input / Giriş")
             input_image = gr.Image(
-                label="Fotoğraf Yükle",
+                label="Upload Photo / Fotoğraf Yükle",
                 type="pil",
                 height=400
             )
-            process_btn = gr.Button("✨ 3D Oluştur", variant="primary", size="lg")
-            clear_btn = gr.Button("🧹 Bellek Temizle", variant="secondary", size="sm")
-            gr.Markdown("**Durum:**")
+            process_btn = gr.Button("✨ Generate 3D / 3D Oluştur", variant="primary", size="lg")
+            clear_btn = gr.Button("🧹 Clear Memory / Bellek Temizle", variant="secondary", size="sm")
+            gr.Markdown("**Status / Durum:**")
             output_status = gr.Textbox(
                 lines=2,
                 show_label=False,
-                placeholder="İşlem durumu..."
+                placeholder="Processing status / İşlem durumu..."
             )
         
         with gr.Column(scale=1, min_width=280):
-            gr.Markdown("## 🎬 Çıktı")
+            gr.Markdown("## 🎬 Output / Çıktı")
             model_3d = gr.Model3D(
                 label="3D Model",
                 height=400,
@@ -369,7 +369,7 @@ with gr.Blocks(title="SHARP - 3D Generator") as demo:
                 zoom_speed=1.0
             )
             output_file = gr.File(
-                label="PLY Dosyası",
+                label="PLY File / PLY Dosyası",
                 file_count="single"
             )
     
@@ -388,17 +388,44 @@ with gr.Blocks(title="SHARP - 3D Generator") as demo:
 
 
 if __name__ == "__main__":
+    import sys
+    
+    # Check Python version compatibility
+    if sys.version_info >= (3, 13):
+        print("\n" + "="*60)
+        print("WARNING: Python 3.13 detected!")
+        print("UYARI: Python 3.13 tespit edildi!")
+        print("\nPyTorch may have compatibility issues with Python 3.13")
+        print("PyTorch, Python 3.13 ile uyumluluk sorunları yaşayabilir")
+        print("\nRecommended: Python 3.11 or 3.12")
+        print("Önerilen: Python 3.11 veya 3.12")
+        print("="*60 + "\n")
+    
     device = get_device()
     
     print(f"SHARP - Device: {device.upper()}")
     if device == "cuda":
         import torch
         print(f"GPU: {torch.cuda.get_device_name(0)}")
-    print(f"URL: http://127.0.0.1:7870\n")
+    
+    # Find available port
+    import socket
+    def find_free_port(start_port=7870, max_attempts=10):
+        for port in range(start_port, start_port + max_attempts):
+            try:
+                with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+                    s.bind(("127.0.0.1", port))
+                    return port
+            except OSError:
+                continue
+        return start_port
+    
+    port = find_free_port()
+    print(f"URL: http://127.0.0.1:{port}\n")
     
     demo.launch(
         server_name="127.0.0.1",
-        server_port=7870,
+        server_port=port,
         share=False,
         inbrowser=False,
         quiet=False,

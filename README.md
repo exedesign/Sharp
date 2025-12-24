@@ -22,7 +22,7 @@ We present SHARP, an approach to photorealistic view synthesis from a single ima
 
 This repository includes a **CUDA-optimized Gradio web interface** for the SHARP model (`app.py`).
 
-![Gradio Interface](data/gradio_interface.jpg)
+![Gradio Interface](data/gradio_interface.png)
 *User-friendly web interface for single-image to 3D model generation / Tek fotoğraftan 3D model oluşturma için kullanıcı dostu web arayüzü*
 
 ### ✨ Features
